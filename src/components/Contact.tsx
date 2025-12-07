@@ -9,11 +9,39 @@ export function Contact() {
     message: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real application, this would send the form data to a backend
-    alert("¡Gracias por tu mensaje! Nos pondremos en contacto pronto.");
-    setFormData({ name: "", email: "", company: "", message: "" });
+    setStatus("submitting");
+
+    // TODO: REPLACE 'YOUR_FORM_ID' WITH YOUR ACTUAL FORMSPREE FORM ID
+    // Register at https://formspree.io/ to get one.
+    const FORMSPREE_ID = "xvgeqezo";
+
+    try {
+      const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        alert("¡Gracias por tu mensaje! Nos pondremos en contacto pronto.");
+        setFormData({ name: "", email: "", company: "", message: "" });
+      } else {
+        setStatus("error");
+        alert("Hubo un error al enviar el mensaje. Por favor intenta nuevamente.");
+      }
+    } catch (error) {
+      setStatus("error");
+      alert("Hubo un error de conexión.");
+    } finally {
+      setStatus("idle");
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -41,7 +69,7 @@ export function Contact() {
             <div className="space-y-8">
               <div className="bg-gradient-to-br from-[#B545D1]/20 to-[#00B4D8]/20 border border-[#00B4D8]/30 rounded-2xl p-8">
                 <h3 className="text-2xl mb-6">Información de Contacto</h3>
-                
+
                 <div className="space-y-6">
                   <div className="flex items-start gap-4">
                     <div className="bg-gradient-to-r from-[#B545D1] to-[#00B4D8] p-3 rounded-lg">
@@ -153,9 +181,10 @@ export function Contact() {
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-[#B545D1] to-[#00B4D8] hover:from-[#9333EA] hover:to-[#0891B2] px-6 py-4 rounded-lg transition-all flex items-center justify-center gap-2 group"
+                  disabled={status === "submitting"}
+                  className="w-full bg-gradient-to-r from-[#B545D1] to-[#00B4D8] hover:from-[#9333EA] hover:to-[#0891B2] disabled:opacity-50 disabled:cursor-not-allowed px-6 py-4 rounded-lg transition-all flex items-center justify-center gap-2 group"
                 >
-                  <span>Enviar Mensaje</span>
+                  <span>{status === "submitting" ? "Enviando..." : "Enviar Mensaje"}</span>
                   <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
               </form>
