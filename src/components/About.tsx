@@ -6,22 +6,18 @@ export function About() {
     {
       icon: Target,
       title: "Enfoque Profesional",
-      description: "Trabajamos exclusivamente con productoras de festivales y eventos, entendiendo sus necesidades específicas."
     },
     {
       icon: TrendingUp,
       title: "Tecnología de Punta",
-      description: "Utilizamos las últimas herramientas de IA y streaming para ofrecer resultados superiores."
     },
     {
       icon: Heart,
       title: "Pasión por la Música",
-
     },
     {
       icon: Award,
       title: "Calidad Garantizada",
-
     }
   ];
 
@@ -50,13 +46,12 @@ export function About() {
             return (
               <div
                 key={index}
-                className="bg-gradient-to-b from-white/5 to-white/0 border border-white/10 rounded-xl p-6 hover:border-[#00B4D8]/50 transition-all"
+                className="bg-gradient-to-b from-white/5 to-white/0 border border-white/10 rounded-xl p-6 hover:border-[#00B4D8]/50 transition-all flex flex-col items-center text-center h-full justify-center"
               >
                 <div className="bg-gradient-to-r from-[#B545D1] to-[#00B4D8] w-12 h-12 rounded-lg flex items-center justify-center mb-4">
                   <Icon className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl mb-2">{value.title}</h3>
-                <p className="text-sm text-gray-400">{value.description}</p>
+                <h3 className="text-xl font-medium">{value.title}</h3>
               </div>
             );
           })}
