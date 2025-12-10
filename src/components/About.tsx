@@ -1,12 +1,6 @@
 import { Target, Heart, TrendingUp, Award } from "lucide-react";
 
 export function About() {
-  const stats = [
-    { number: "100+", label: "Eventos Producidos" },
-    { number: "50K+", label: "Espectadores Online" },
-    { number: "30+", label: "Productoras Asociadas" },
-    { number: "100%", label: "Satisfacción Cliente" }
-  ];
 
   const values = [
     {
@@ -22,29 +16,19 @@ export function About() {
     {
       icon: Heart,
       title: "Pasión por la Música",
-      description: "Somos fanáticos de los eventos musicales y nos apasiona ayudar a que sean un éxito."
+
     },
     {
       icon: Award,
       title: "Calidad Garantizada",
-      description: "Cada proyecto es tratado con el máximo nivel de profesionalismo y atención al detalle."
+
     }
   ];
 
   return (
     <section className="py-20 bg-gradient-to-b from-[#B545D1]/10 to-black">
       <div className="container mx-auto px-4">
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
-          {stats.map((stat, index) => (
-            <div key={index} className="text-center">
-              <div className="text-4xl md:text-5xl mb-2 bg-gradient-to-r from-[#B545D1] to-[#00B4D8] text-transparent bg-clip-text">
-                {stat.number}
-              </div>
-              <div className="text-gray-400">{stat.label}</div>
-            </div>
-          ))}
-        </div>
+
 
         {/* About Content */}
         <div className="max-w-4xl mx-auto text-center mb-16">
